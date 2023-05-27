@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="add_pateint.css">
+    <link rel="stylesheet" href="hhome_style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+</head>
+
+<body bgcolor="">
+    <nav>
+        <label class="logo"><img class="logo_img" src="logo.jpeg" style="width:39px; height:39px;">HealthyWeb</label>
+        <!--<img class="logo_img" src="logo.jpeg" style="width:25px; height:25px;">-->
+        <ul style="margin-right:50px;">
+          <li><a href="index1.html">Home</a></li>
+          <li><a class="active"href="add_pateint.html">Add Patient</a></li>
+          <li><a href="appointments2.html">Appointments</a></li>
+          <li><a  href="upload_details.html">Upload Details</a></li>
+          <li><a href="#">Medical History</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+
+
+    <center>
+        <div class="card">
+            <div class="container">
+                <center>
+                    <table border='0' width='480px' cellpadding='0' cellspacing='0' align='center' class="table1">
+
+                        <tr>
+                            <td>
+                                <center>
+                                    <h1 id="text">enter new patient details</h1>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <table border='0' width='480px' cellpadding='0' cellspacing='0' align='center' class="table2">
+                            <tr>
+                                <td id="text" align='center'>Name </td>
+                                <td><input class="input" type='text' id='name'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td id="text" align='center'>Phone number</td>
+                                <td><input class="input" type='text' id='phone'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td id="text" align='center'>Id</td>
+                                <td><input class="input" type='Id' id='Id'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td id="text" align='center'>Gender</td>
+                                <td><input class="input" type='text' id='gender'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+
+                            <tr>
+                                <td id="text" align='center'>Age</td>
+                                <td><input class="input" type='text' id='age'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+
+                            <tr>
+                                <td id="text" align='center'>Weight</td>
+                                <td><input class="input" type='mail' id='weight'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td id="text" align='center'>Height</td>
+                                <td><input class="input" type='text' id='height'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td id="text" align='center'>BMI</td>
+                                <td><input class="input" type='text' id='BMI'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                                <td id="text" align='center'>BP</td>
+                                <td><input class="input" type='text' id='BP'></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                        </table>
+                    </table>
+                </center>
+                <br>
+                <center><button id="save">save</button></center>
+                <br>
+                <br>
+            </div>
+        </div>
+    </center>
+
+    <script type="module">
+     
+
+    
+  
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+        import { getDatabase , ref, set} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+      
+    
+      
+    
+          const firebaseConfig = {
+              apiKey: "AIzaSyDeeZy33xaqtvRFD0WNAgi2L71y8dCpdwI",
+              authDomain: "lmc-123.firebaseapp.com",
+              databaseURL: "https://lmc-123-default-rtdb.firebaseio.com",
+              projectId: "lmc-123",
+              storageBucket: "lmc-123.appspot.com",
+              messagingSenderId: "274858151494",
+              appId: "1:274858151494:web:f45b1fe161254483500447"
+          };
+          const app = initializeApp(firebaseConfig);
+          
+          var phone,name,Id,gender,age,weight,height,BMI,BP;
+          
+        
+        function Ready(){
+            name = document.getElementById("name").value;
+            alert("entered");
+            phone = document.getElementById("phone").value;
+            Id = document.getElementById("Id").value;
+            gender = document.getElementById("gender").value;
+            age = document.getElementById("age").value;
+            weight = document.getElementById("weight").value;
+            height = document.getElementById("height").value;
+            BMI = document.getElementById("BMI").value;
+            BP = document.getElementById("BP").value;
+        }
+          
+        
+    
+        document.getElementById('save').onclick = function writeUserData() {
+              Ready();
+              
+              const db = getDatabase();
+            
+              set(ref(db, 'patient_details/'+phone), {
+                phone : phone,
+                name : name,
+                Id : Id,
+                gender : gender,
+                age : age,
+                weight : weight,
+                height : height,
+                BMI : BMI,
+                BP : BP
+              });
+            }
+    
+      </script> 
+</body>
+
+</html>

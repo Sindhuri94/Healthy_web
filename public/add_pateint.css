@@ -1,0 +1,65 @@
+
+.input:hover
+{
+    background-color: rgb(255, 255, 255);
+    size: 20px;
+    border-style: solid ;
+    border-color: rgb(54, 53, 56);
+}          
+#rbtn:hover{
+    background-color: rgb(33, 153, 174);
+    color: rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);;
+}
+.card 
+{
+
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 15cm;
+    
+    margin-top: 50px;
+    background-color: rgb(33, 153, 174);
+}
+.table1
+{
+    font-size: larger;
+}
+.table2
+{
+    font-size: larger;
+}
+
+.input
+{
+    font-size: 15px;
+    padding: 6px;
+    border-radius: 8px;
+    border-color: rgb(255, 255, 255);
+    width: 70%;
+}
+#rbtn
+{
+    text-align: center;
+    align-items: center;
+    font-size: larger;
+    background-color: rgb(255, 255, 255);
+    border-style: solid;
+    border-color: rgb(5, 5, 94);
+    border-radius: 8px;
+    color:rgb(5, 5, 94) ;
+    padding: 7px;
+    width: 4cm;
+    
+}
+#text
+{
+    color: rgb(255, 255, 255);
+    font-style: oblique;
+    font-style: bold;
+}
+

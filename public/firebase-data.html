@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="upload_details_css.css">
+  <link rel="stylesheet" href="medHistory.css">
+  <script defer src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.9.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/9.9.1/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
+
+<body>
+  <nav>
+    <label class="logo"><img class="logo_img" src="logo.jpeg" style="width:39px; height:39px;">HealthyWeb</label>
+    <!--<img class="logo_img" src="logo.jpeg" style="width:25px; height:25px;">-->
+    <ul style="margin-right:50px;">
+      <li><a href="index1.html">Home</a></li>
+      <li><a href="add_pateint.html">Add Patient</a></li>
+      <li><a href="appointments2.html">Appointments</a></li>
+      <li><a class="active" href="upload_details.html">Upload Details</a></li>
+      <li><a href="#">Medical History</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+  <h1>Medical History</h1>
+  <center><input type="text" name="phoneH" placeholder="Enter patient Phone Number" id="phoneH" required></center>
+  <button id="save" >Get Details</button>
+  <table id="List">
+    <tbody>
+    </tbody>
+  </table>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDeeZy33xaqtvRFD0WNAgi2L71y8dCpdwI",
+      authDomain: "lmc-123.firebaseapp.com",
+      databaseURL: "https://lmc-123-default-rtdb.firebaseio.com",
+      projectId: "lmc-123",
+      storageBucket: "lmc-123.appspot.com",
+      messagingSenderId: "274858151494",
+      appId: "1:274858151494:web:f45b1fe161254483500447",
+      measurementId: "G-98ZY9KCQ83"
+    };
+
+   
+    const app = initializeApp(firebaseConfig);
+  </script>
+  <script src="app.js"></script>
+  <script src="firbase.js"></script>
+
+</body>
+
+
+
+</html>

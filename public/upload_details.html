@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="upload_details_css.css">
+  <script defer src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.9.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-performance-compat.js"></script>
+  <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+</head>
+
+<body>
+
+  <nav>
+    <label class="logo"><img class="logo_img" src="logo.jpeg" style="width:39px; height:39px;">HealthyWeb</label>
+    <!--<img class="logo_img" src="logo.jpeg" style="width:25px; height:25px;">-->
+    <ul style="margin-right:50px;">
+      <li><a href="index1.html">Home</a></li>
+      <li><a href="add_pateint.html">Add Patient</a></li>
+      <li><a href="appointments2.html">Appointments</a></li>
+      <li><a class="active" href="upload_details.html">Upload Details</a></li>
+      <li><a href="#">Medical History</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </nav>
+  <centre>
+
+    <h1>Upload Prescriptions</h1>
+
+    <center><input type="text" name="phoneNO" placeholder="Enter patient Phone Number" id="phoneNO" required></center>
+
+    <table class="TFtable">
+      <tr>
+        <th class="Thead">S.No</th>
+        <th class="Thead">Medicine Name</th>
+        <th class="Thead">Before Breakfast</th>
+        <th class="Thead">After Breakfast</th>
+        <th class="Thead">After Lunch</th>
+        <th class="Thead">After Dinner</th>
+      </tr>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <center><button type="button" onclick="addItem();" id="add">Add row</button></center>
+    <center><button id="save">save</button></center>
+
+    <script>
+      var items = 0;
+      function addItem() {
+        items++;
+
+        var html = "<tr>";
+        html += "<td class='Trow'>" + items + "</td>";
+        html += "<td class='Trow'>";
+        html += "<select id='select_Medicine' name='select_Medicine[]'> ";
+        html += "<option value='select'>select</option>";
+        html += "<option value='paracetimaul'>paracetimaul</option>";
+        html += "<option value='citrizen'>citrizen</option>";
+        html += "</select>";
+        html += "</td>";
+        html += "<td class='Trow'>";
+        html += "<select id='before_breakfast' name='before_breakfast[]'> ";
+        html += "<option value='yes'>yes</option>";
+        html += "<option value='no'>no</option>";
+        html += "</select>";
+        html += "</td>";
+        html += "<td class='Trow'>";
+        html += "<select id='after_breakfast' name='after_breakfast[]'> ";
+        html += "<option value='yes'>yes</option>";
+        html += "<option value='no'>no</option>";
+        html += "</select>";
+        html += "</td>";
+        html += "<td class='Trow'>";
+        html += "<select id='lunch' name='lunch[]'> ";
+        html += "<option value='yes'>yes</option>";
+        html += "<option value='no'>no</option>";
+        html += "</select>";
+        html += "</td>";
+        html += "<td class='Trow'>";
+        html += "<select id='dinner' name='dinner[]'> ";
+        html += "<option value='yes'>yes</option>";
+        html += "<option value='no'>no</option>";
+        html += "</select>";
+        html += "</td>";
+        html += "</tr>";
+
+        var row = document.getElementById("tbody").insertRow();
+        row.innerHTML = html;
+      }
+    </script>
+
+    <title>Upload Diet & Exercises</title>
+    <div class="float-container">
+      <div class="float-child">
+        <label><b>
+            <h1 class="file_head">Choose the File to upload Patient's Diet: </h1>
+          </b></label><br><br>
+        <input type="file" id="fileButton" name="fileButton" multiple="" accept="images/*"><br /><br />
+        <input type="submit" class="file_submit" value="submit" />
+      </div>&nbsp
+
+      <div class="float-child">
+        <label><b>
+            <h1 class="file_head">Choose the File to upload Exercises: </h1>
+          </b></label><br><br>
+        <input type="file" id="fileButton2" name="fileButton" multiple="" accept="images/*"><br /><br />
+        <input type="submit" class="file_submit" value="submit" />
+      </div>
+    </div>
+  </centre>
+
+  <script type="module">
+
+
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+
+
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDeeZy33xaqtvRFD0WNAgi2L71y8dCpdwI",
+      authDomain: "lmc-123.firebaseapp.com",
+      databaseURL: "https://lmc-123-default-rtdb.firebaseio.com",
+      projectId: "lmc-123",
+      storageBucket: "lmc-123.appspot.com",
+      messagingSenderId: "274858151494",
+      appId: "1:274858151494:web:f45b1fe161254483500447"
+    };
+    const app = initializeApp(firebaseConfig);
+
+    var phoneNO, select_Medicine = [], before_breakfast = [], after_breakfast = [], lunch = [], dinner = [];
+    //var len;
+
+
+    function Ready() {
+      phoneNO = document.getElementById("phoneNO").value;
+      select_Medicine = document.getElementsByName("select_Medicine[]");
+      before_breakfast = document.getElementsByName("before_breakfast[]");
+      after_breakfast = document.getElementsByName("after_breakfast[]");
+      lunch = document.getElementsByName("lunch[]");
+      dinner = document.getElementsByName("dinner[]");
+      alert("entered");
+    }
+
+
+
+    document.getElementById('save').onclick = function writeUserData() {
+      Ready();
+      const db = getDatabase();
+      var len = select_Medicine.length;
+      alert(len);
+      for (var a = 0; a < select_Medicine.length; a++) {
+
+        if (before_breakfast[a].value == "yes") {
+          alert(select_Medicine[a].value);
+          set(ref(db, 'prescriptions/' + phoneNO + '/' + "before_breakfast" + "/" + a), {
+            medicine: select_Medicine[a].value
+          });
+        }
+        if (after_breakfast[a].value == "yes") {
+          alert(select_Medicine[a].value);
+          set(ref(db, 'prescriptions/' + phoneNO + '/' + "after_breakfast" + "/" + a), {
+            medicine: select_Medicine[a].value
+          });
+        }
+        if (lunch[a].value == "yes") {
+          alert(select_Medicine[a].value);
+          set(ref(db, 'prescriptions/' + phoneNO + '/' + "lunch" + "/" + a), {
+            medicine: select_Medicine[a].value
+          });
+        }
+        if (dinner[a].value == "yes") {
+          alert(select_Medicine[a].value);
+          set(ref(db, 'prescriptions/' + phoneNO + '/' + "dinner" + "/" + a), {
+            medicine: select_Medicine[a].value
+          });
+        }
+      }
+    }
+
+  </script>
+  <script src="app.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

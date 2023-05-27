@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="upload_details_css.css">
+    <link rel="stylesheet" href="add_pateint.css">
+    <link rel="stylesheet" href="hhome_style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <label class="logo"><img class="logo_img" src="logo.jpeg" style="width:39px; height:39px;">HealthyWeb</label>
+        <!--<img class="logo_img" src="logo.jpeg" style="width:25px; height:25px;">-->
+        <ul style="margin-right:50px;">
+          <li><a href="index1.html">Home</a></li>
+          <li><a href="add_pateint.html">Add Patient</a></li>
+          <li><a class="active" href="appointments2.html">Appointments</a></li>
+          <li><a href="upload_details.html">Upload Details</a></li>
+          <li><a href="#">Medical History</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    <table class="TFtable">
+        <h1>Appointments</h1>
+        <tr >
+           <th class="Thead">doctor name</th>
+           <th class="Thead">phone number</th>
+           <th class="Thead">date</th>
+           <th class="Thead">time</th>
+        </tr>
+        <tbody id="tbody"></tbody>
+     </table>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+        import { getDatabase, ref, set,onValue } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDeeZy33xaqtvRFD0WNAgi2L71y8dCpdwI",
+            authDomain: "lmc-123.firebaseapp.com",
+            databaseURL: "https://lmc-123-default-rtdb.firebaseio.com",
+            projectId: "lmc-123",
+            storageBucket: "lmc-123.appspot.com",
+            messagingSenderId: "274858151494",
+            appId: "1:274858151494:web:f45b1fe161254483500447"
+        };
+        const app = initializeApp(firebaseConfig);
+        var date,doc_name,phone_no,time;
+        
+        
+        function writeUserData() {
+            const db = getDatabase();
+            //const ref = ref(db, "Apt_details");
+            onValue(ref(db, "Apt_details"), (snapshot) => {
+                //const data = snapshot.val().apt_date;
+                //console.log(data)
+                //alert(data);
+                snapshot.forEach(function(childSnapshot) {
+                    date = childSnapshot.val().apt_date;
+                    doc_name = childSnapshot.val().apt_doctor;
+                    phone_no = childSnapshot.val().apt_pat_no;
+                    time = childSnapshot.val().apt_time;
+                    addItem();
+                    
+                });
+            });
+        }
+        writeUserData();
+        function addItem() {
+          var html = "<tr>";
+          
+          html += "<td class='Trow'>";
+          html += doc_name;
+          html += "</td>";
+          
+          html += "<td class='Trow'>";
+          html += phone_no;
+          html += "</td>";
+          
+          html += "<td class='Trow'>";
+          html += date;
+          html += "</td>";
+          
+          html += "<td class='Trow'>";
+          html += time;
+          html += "</td></tr>";
+        
+  
+          var row = document.getElementById("tbody").insertRow();
+          row.innerHTML = html;
+        }
+
+    </script>
+</body>
+
+</html>
